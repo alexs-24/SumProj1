@@ -5,24 +5,30 @@
 
 #include <iostream>
 #include <sqlite3.h>
+#include "Transaction.h"
+#include "Database.h"
 
 /// this is a test
 int main() {
 
-    sqlite3* db;
+    Database db;
 
-    int result = sqlite3_open("../finance.db", &db);
+    if (db.openDb()) std::cout << "Database successfully created!" << std::endl;
+    else std::cout << "Database failed to create!" << std::endl;
 
-    if(result == SQLITE_OK)
-    {
-        std::cout << "Database connected successfully\n";
-    }
-    else
-    {
-        std::cout << "Connection failed\n";
-    }
+    db.createTable();
 
-    sqlite3_close(db);
+    double amount = 42.99;
+    std::string category = "Food";
+    std::string date = "5-24-2026";
+    std::string description = "Groceries";
+    TransactionType type = TransactionType::Expense;
+
+    Transaction transaction(amount, category, date, description, type);
+
+    db.addTransaction(transaction);
+
+    db.closeDb();
 
     return 0;
 }
