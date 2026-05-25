@@ -19,22 +19,43 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(SumProj1
+add_executable(
+        SumProj1
         main.cpp
         Database.cpp
         Transaction.cpp
 )
 
-target_include_directories(SumProj1 PRIVATE ${sqlite3_SOURCE_DIR})
+target_include_directories(
+        SumProj1
+        PRIVATE
+        ${sqlite3_SOURCE_DIR}
+)
 
-target_sources(SumProj1 PRIVATE
+target_sources(
+        SumProj1
+        PRIVATE
         ${sqlite3_SOURCE_DIR}/sqlite3.c
 )
 
 add_executable(
         Tests
         tests/TransactionTests.cpp
+        tests/DatabaseTests.cpp
         Transaction.cpp
+        Database.cpp
+)
+
+target_include_directories(
+        Tests
+        PRIVATE
+        ${sqlite3_SOURCE_DIR}
+)
+
+target_sources(
+        Tests
+        PRIVATE
+        ${sqlite3_SOURCE_DIR}/sqlite3.c
 )
 
 target_link_libraries(

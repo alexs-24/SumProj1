@@ -44,7 +44,7 @@ void Database::closeDb()
     }
 }
 
-void Database::createTable()
+bool Database::createTable()
 {
     std::string query = "CREATE TABLE IF NOT EXISTS transactions(id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, amount REAL, category TEXT, date TEXT, description TEXT)";
 
@@ -53,14 +53,16 @@ void Database::createTable()
     if (result == SQLITE_OK)
     {
         std::cout << "Table successfully created, or already exists" << std::endl;
+        return true;
     }
     else
     {
         std::cout << "Table not successful";
+        return false;
     }
 }
 
-void Database::addTransaction(const Transaction& transaction)
+bool Database::addTransaction(const Transaction& transaction)
 {
     /// extract the values
     double amount = transaction.getAmount();
@@ -87,9 +89,11 @@ void Database::addTransaction(const Transaction& transaction)
     if (result == SQLITE_OK)
     {
         std::cout << "Information successfully added";
+        return true;
     }
     else
     {
         std::cout << "Information not successful, Error: " << result << std::endl;
+        return false;
     }
 }

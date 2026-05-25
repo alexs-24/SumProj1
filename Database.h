@@ -8,7 +8,6 @@
 #ifndef SUMPROJ1_DATABASE_H
 #define SUMPROJ1_DATABASE_H
 #include <sqlite3.h>
-
 #include "Transaction.h"
 
 class Database
@@ -36,9 +35,9 @@ public:
     /**
      * Create the sql table
      */
-    void createTable();
+    bool createTable();
 
-    void addTransaction(const Transaction& transaction);
+    bool addTransaction(const Transaction& transaction);
 };
 
 
