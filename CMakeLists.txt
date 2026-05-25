@@ -12,14 +12,32 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(sqlite3)
 
-add_executable(SumProj1 main.cpp
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+
+FetchContent_MakeAvailable(googletest)
+
+add_executable(SumProj1
+        main.cpp
         Database.cpp
-        Database.h
         Transaction.cpp
-        Transaction.h)
+)
 
 target_include_directories(SumProj1 PRIVATE ${sqlite3_SOURCE_DIR})
 
 target_sources(SumProj1 PRIVATE
         ${sqlite3_SOURCE_DIR}/sqlite3.c
+)
+
+add_executable(
+        Tests
+        tests/TransactionTests.cpp
+        Transaction.cpp
+)
+
+target_link_libraries(
+        Tests
+        GTest::gtest_main
 )
