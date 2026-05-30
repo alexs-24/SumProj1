@@ -52,6 +52,8 @@ public:
     std::string getDescription() const {return description;}
     /// getter for the type
     TransactionType getType() const {return type;}
+
+    void setId(int set_id) {id = set_id;}
 };
 
 

@@ -8,6 +8,36 @@
 #include <iostream>
 #include <string>
 
+static int GetTransactionsCallback(void* data,
+                                   int argc,
+                                   char** argv,
+                                   char** columnNames)
+{
+    auto transactions = static_cast<std::vector<Transaction>*>(data);
+
+    int c_id = std::stoi(argv[0]);
+
+    std::string type = argv[1];
+    TransactionType c_type;
+    if (type == "Income") {c_type = TransactionType::Income;}
+    else {c_type = TransactionType::Expense;}
+
+    double c_amount = std::stod(argv[2]);
+
+    std::string c_category = argv[3];
+
+    std::string c_date = argv[4];
+
+    std::string c_description = argv[5];
+
+    Transaction transaction(c_amount, c_category, c_date, c_description, c_type);
+    transaction.setId(c_id);
+
+    transactions->push_back(transaction);
+
+    return 0;
+}
+
 Database::Database()
 {
     db = nullptr;
@@ -88,7 +118,7 @@ bool Database::addTransaction(const Transaction& transaction)
     int result = sqlite3_exec(db, query.c_str(), nullptr, nullptr, nullptr);
     if (result == SQLITE_OK)
     {
-        std::cout << "Information successfully added";
+        std::cout << "Information successfully added" << std::endl;
         return true;
     }
     else
@@ -96,4 +126,15 @@ bool Database::addTransaction(const Transaction& transaction)
         std::cout << "Information not successful, Error: " << result << std::endl;
         return false;
     }
+}
+
+std::vector<Transaction> Database::getAllTransactions()
+{
+    std::vector<Transaction> transactions;
+
+    std::string query = "SELECT * FROM transactions";
+
+    sqlite3_exec(db, query.c_str(), GetTransactionsCallback, &transactions, nullptr);
+
+    return transactions;
 }

@@ -28,6 +28,23 @@ int main() {
 
     db.addTransaction(transaction);
 
+    amount = 45.99;
+    category = "Food";
+    date = "5-29-2026";
+    description = "Mcdonalds";
+    type = TransactionType::Expense;
+
+    Transaction transaction2(amount, category, date, description, type);
+
+    db.addTransaction(transaction2);
+
+    auto transactions = db.getAllTransactions();
+
+    for (Transaction& t : transactions)
+    {
+        t.display();
+    }
+
     db.closeDb();
 
     return 0;
