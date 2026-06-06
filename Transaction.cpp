@@ -16,9 +16,10 @@ Transaction::Transaction(double amount, std::string category, std::string date, 
     this->type = type;
 }
 
-void Transaction::display()
+void Transaction::display() const
 {
-    std::cout << "Amount: " << amount << std::endl <<
+    std::cout << "ID: " << id << std::endl <<
+        "Amount: " << amount << std::endl <<
         "Category: " << category << std::endl <<
             "Date: " << date << std::endl <<
                 "Description: " << description << std::endl;

@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "Transaction.h"
+#include "Budget.h"
 
 class Database
 {
@@ -38,17 +39,25 @@ public:
      * Create the sql table
      */
     bool createTable();
+
+    bool createBudgetTable();
     /**
      * add the transaction to our database
      * @param transaction
      * @return True/false for if successfully added
      */
     bool addTransaction(const Transaction& transaction);
+
+    bool addBudget(const Budget& budget);
     /**
      * output our current transactions
      * @return
      */
     std::vector<Transaction> getAllTransactions();
+
+    void DeleteTransaction();
+
+    std::vector<Budget> getAllBudgets();
 };
 
 

@@ -41,7 +41,7 @@ public:
     /**
      * display the transaction for the user
      */
-    void display();
+    void display() const;
     /// getter for the amount
     double getAmount() const {return amount;}
     /// getter for the category
@@ -52,8 +52,16 @@ public:
     std::string getDescription() const {return description;}
     /// getter for the type
     TransactionType getType() const {return type;}
-
+    /**
+     * setter for the id the database creates for us
+     * @param set_id
+     */
     void setId(int set_id) {id = set_id;}
+    /**
+     * Getter for our other classes to get the id of the transaction
+     * @return
+     */
+    int getId() const {return id;}
 };
 
 

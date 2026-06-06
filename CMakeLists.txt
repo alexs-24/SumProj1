@@ -24,6 +24,10 @@ add_executable(
         main.cpp
         Database.cpp
         Transaction.cpp
+        Report.cpp
+        Report.h
+        Budget.cpp
+        Budget.h
 )
 
 target_include_directories(
